@@ -1,0 +1,143 @@
+from textwrap import dedent
+
+html = dedent("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For My Qalbi ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#ffd6e8,#fff4f8);
+overflow:hidden;color:#444}
+.page{position:absolute;inset:0;display:none;justify-content:center;align-items:center;padding:20px}
+.page.active{display:flex;animation:fade .6s}
+.card{max-width:650px;width:100%;background:rgba(255,255,255,.75);backdrop-filter:blur(15px);
+border-radius:28px;padding:28px;box-shadow:0 15px 40px rgba(0,0,0,.12);text-align:center}
+h1,h2{color:#ff4f8f}
+p{line-height:1.8;margin:12px 0}
+button{padding:12px 22px;border:0;border-radius:30px;background:#ff5f9e;color:#fff;font-weight:700;margin:8px;cursor:pointer}
+button:hover{transform:scale(1.05)}
+img.hero{width:220px;border-radius:20px}
+.grid{display:grid;grid-template-columns:repeat(3,70px);gap:10px;justify-content:center;margin:15px auto}
+.key{background:#ff9bc2}
+#display{width:180px;font-size:28px;text-align:center;border:2px solid #ffb4d2;border-radius:14px;padding:10px}
+.letter{font-family:Caveat,cursive;font-size:31px;text-align:left}
+.heart{position:fixed;top:-20px;animation:fall linear forwards}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+@keyframes fall{to{transform:translateY(110vh);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="page active" id="lock">
+<div class="card">
+<h2>🔐 Enter Passcode</h2>
+<img class="hero" src="https://placehold.co/220x220/png?text=Photo">
+<br><br>
+<input id="display" readonly><br>
+<div class="grid" id="pad"></div>
+<button onclick="unlock()">Unlock ❤️</button>
+</div></div>
+
+<div class="page" id="wrong">
+<div class="card">
+<h1>🥺 Wrong Passcode!</h1>
+<p>Ek baar aur try karo.</p>
+<button onclick="go('lock')">Try Again</button>
+</div></div>
+
+<div class="page" id="ask">
+<div class="card">
+<img class="hero" src="https://placehold.co/260x180/png?text=Cute+Couple">
+<h2>I made something special for u 💖</h2>
+<p>Do you want to see it?</p>
+<button onclick="go('birthday')">YES</button>
+<button onclick="go('no')">NO</button>
+</div></div>
+
+<div class="page" id="no">
+<div class="card">
+<h2>😭 Why did you click NO?</h2>
+<button onclick="go('ask')">Try Again</button>
+</div></div>
+
+<div class="page" id="birthday">
+<div class="card">
+<h1>🎂 Happy Birthday, My Qalbi ❤️</h1>
+<p>3 December</p>
+<img class="hero" src="https://placehold.co/250x180/png?text=Cake">
+<p>May today be as beautiful as your smile.</p>
+<button onclick="go('letter')">Open My Letter 💌</button>
+</div></div>
+
+<div class="page" id="letter">
+<div class="card">
+<h2>💌 My Wish For You</h2>
+<div class="letter">
+Happy Birthday, my Qalbi. 🤍<br><br>
+I pray that Allah fills your life with peace, happiness, good health and endless blessings.
+Thank you for bringing warmth into every moment. I hope every dream you carry finds its way to reality and every difficulty turns into ease.
+You deserve genuine smiles, beautiful memories and people who always value your heart.
+Please never forget how precious you are. Wherever life takes us, I will always pray for your happiness and success.
+May your smile never fade, may your heart always stay at peace, and may this birthday become the beginning of your most beautiful year.
+Happy Birthday once again, my Qalbi. ❤️
+</div>
+<button onclick="go('final')">One Last Surprise 🎁</button>
+</div></div>
+
+<div class="page" id="final">
+<div class="card">
+<h1>🤗 Virtual Hug</h1>
+<img class="hero" src="https://placehold.co/260x180/png?text=Our+Memories">
+<p>I Miss You ❤️</p>
+<h2>Will you always be my Qalbi?</h2>
+<button onclick="alert('Yay! ❤️')">YES</button>
+<button id="nobtn">NO</button>
+</div></div>
+
+<script>
+function go(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+const pad=document.getElementById('pad');
+const d=document.getElementById('display');
+['1','2','3','4','5','6','7','8','9','*','0','#'].forEach(v=>{
+let b=document.createElement('button');
+b.className='key';b.textContent=v;
+b.onclick=()=>d.value+=v;
+pad.appendChild(b);
+});
+function unlock(){
+if(d.value==='1234')go('ask'); else {d.value='';go('wrong');}
+}
+const nb=document.getElementById('nobtn');
+nb.onmouseenter=()=>{
+nb.style.position='fixed';
+nb.style.left=Math.random()*80+'vw';
+nb.style.top=Math.random()*80+'vh';
+}
+setInterval(()=>{
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML='💖';
+h.style.left=Math.random()*100+'vw';
+h.style.fontSize=(18+Math.random()*20)+'px';
+h.style.animationDuration=(3+Math.random()*3)+'s';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+</script>
+</body>
+</html>
+""")
+
+path="/mnt/data/For_My_Qalbi_Premium.html"
+with open(path,"w",encoding="utf-8") as f:
+    f.write(html)
+print(path)
